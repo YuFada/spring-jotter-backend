@@ -16,13 +16,13 @@ import java.util.List;
  */
 @SuppressWarnings("all")
 @Service
-public class BookService  {
+public class BookService {
     @Autowired
     BookDao bookDao;
     @Autowired
     CategoryService categoryService;
 
-    public List<Book> list(){
+    public List<Book> list() {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         return bookDao.findAll(sort);
     }

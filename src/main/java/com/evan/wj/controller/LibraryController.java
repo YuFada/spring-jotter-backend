@@ -19,27 +19,28 @@ public class LibraryController {
     BookService bookService;
 
     @GetMapping("/api/books")
-    public List<Book> list(){
+    public List<Book> list() throws Exception {
         return bookService.list();
     }
 
     @PostMapping("/api/books")
-    public Book addOrUpdate(@RequestBody Book book){
+    public Book addOrUpdate(@RequestBody Book book) throws Exception {
         bookService.addOrUpdate(book);
         return book;
     }
 
     @PostMapping("/api/delete")
-    public void delete(@RequestBody Book book){
+    public void delete(@RequestBody Book book) throws Exception {
         bookService.deleteById(book.getId());
     }
 
+
     @GetMapping("/api/categories/{cid}/books")
-    public List<Book> listByCategory(@PathVariable("cid") int cid){
-        if (0!=cid){
-            return  bookService.listByCategory(cid);
-        }else {
-            return  list();
+    public List<Book> listByCategory(@PathVariable("cid") int cid) throws Exception {
+        if (0 != cid) {
+            return bookService.listByCategory(cid);
+        } else {
+            return list();
         }
     }
 }
