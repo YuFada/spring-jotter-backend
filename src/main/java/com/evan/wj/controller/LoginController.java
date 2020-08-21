@@ -15,7 +15,7 @@ import java.util.Objects;
 @RestController
 public class LoginController {
     @CrossOrigin
-    @PostMapping(value = "api/login")
+    @RequestMapping(value = "api/login")
     @ResponseBody
     public Result login(@RequestBody User requestUser) {
         // 对 html 标签进行转义，防止 XSS 攻击

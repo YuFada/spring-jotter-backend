@@ -1,11 +1,22 @@
 package com.evan.wj.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
 /**
  * @author fada.yu
  * @date 2020/8/21 11:05
  * @Description：
  */
+@Entity
+@Table(name = "user")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
+
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     int id;
     String username;
     String password;
