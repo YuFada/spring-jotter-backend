@@ -1,66 +1,77 @@
 package com.evan.wj.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 /**
  * @author fada.yu
  * @date 2020/8/21 11:05
  * @Description：
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
-
+@ToString
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
-    String username;
-    String password;
+    private int id;
 
-    public int getId() {
-        return id;
-    }
+    /**
+     * Username.
+     */
+    @NotEmpty(message = "用户名不能为空")
+    private String username;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    /**
+     * Password.
+     */
+    private String password;
 
-    public String getUsername() {
-        return username;
-    }
+    /**
+     * Salt for encoding.
+     */
+    private String salt;
 
-    public void setUseranem(String useranem) {
-        this.username = useranem;
-    }
+    /**
+     * Real name.
+     */
+    private String name;
 
-    public String getPassword() {
-        return password;
-    }
+    /**
+     * Phone number.
+     */
+    private String phone;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    /**
+     * Email address.
+     *
+     * A Email address can be null,but should be correct if exists.
+     */
+    @Email(message = "请输入正确的邮箱")
+    private String email;
 
+    /**
+     * User status.
+     */
+    private boolean enabled;
 
-    public User(int id, String useranem, String password) {
-        this.id = id;
-        this.username = useranem;
-        this.password = password;
-    }
+    /**
+     * Transient property for storing role owned by current user.
+     */
+//    @Transient
+//    private List<AdminRole> roles;
 
-    public User() {
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", useranem='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
+
